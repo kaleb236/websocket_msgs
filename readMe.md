@@ -345,3 +345,38 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
 
     Msg_type: [std_msgs/String](https://docs.ros2.org/foxy/api/std_msgs/msg/String.html)
 
+## Services
+1. **Load Map**
+   
+   Service_name: `/amr_websocket/load_map`
+   
+   Service_type: `amr_websocket_interfaces/MapName`
+
+   Service_definition:
+
+   ```json
+   # Request
+    {
+        "filename": "string"
+    }
+   ```
+   ```json
+   # Response
+   0: Success
+   1: Fail
+    {
+        "result": "uint8" 
+    }
+   ```
+
+2. **Delete Map**
+   
+   Service_name: `/amr_websocket/delete_map`
+   
+   Service_type: `amr_websocket_interfaces/MapName`
+
+3. **Save Map**
+   
+   Service_name: `/amr_websocket/save_map`
+   
+   Service_type: `amr_websocket_interfaces/MapName`
