@@ -81,6 +81,9 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
 
    [geometry_msgs/TransformStamped](https://docs.ros2.org/foxy/api/geometry_msgs/msg/TransformStamped.html)
 
+   Robotun child_frame_id: base_link (Eger gelen mesajin child_frame_id == base_link robotta aittir)
+
+
 
 5. **Keepout Polygons Topic**
    
