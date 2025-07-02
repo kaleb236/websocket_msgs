@@ -211,6 +211,26 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
         "pending_stations": "string[]"
     }
     ```
+11. **Video Status Topic**
+   
+   Topic: `video_status`
+
+   Msg_type: `orbit_command_msgs/VideoStatus`
+
+   Msg_definition:
+
+   ```json
+    {
+        "video_names": "string[]",
+        "video_frames": "string[]"
+    }
+   ```
+
+   Video Status Mesajı
+
+    Video_names (string[]): Robotun içinde kayıtlı olan videoların isimlerini içeren bir dizi (liste). Her bir eleman, bir videonun adını temsil eder.
+
+    Video_frames (string[]): Her bir video için, o videoya ait bir veya birden fazla görüntünün (frame) base64 formatında kodlanmış halini içeren bir dizi. Her eleman, bir görüntüyü base64 string olarak temsil eder.
 
 ## Subscribers
 
