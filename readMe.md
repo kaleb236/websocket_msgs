@@ -235,6 +235,49 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
 
     Video_frames (string[]): Her bir video için, o videoya ait bir veya birden fazla görüntünün (frame) base64 formatında kodlanmış halini içeren bir dizi. Her eleman, bir görüntüyü base64 string olarak temsil eder.
 
+12. **Short introductions Topic**
+    
+    Topic: `introductions`
+
+    Msg_type: `amr_websocket_interfaces/Introductions`
+
+    Msg_definition:
+
+    ```json
+     {
+        "introductions": "amr_websocket_interfaces/ShortIntroduction[]"
+     }
+    ```
+
+13. **Mode Status Topic**
+   
+   Topic: `robot_mode_name`
+
+   Msg_type: `amr_websocket_interfaces/ModeControl`
+
+   Msg_definition:
+
+   ```json
+    {
+        "system_mode": "string",
+        "nav2_mode": "string",
+        "modes": "string",
+        "system_variant": "string"
+    }
+   ```
+
+   Mode Status Mesajı
+
+    system_mode (string): "navigation" ya da "mat" eger mat modundaysa navigasyon sayfasi acilmaz. Bu mode control sayfasin da button ile gecisi saglanicaktir(Navigasyon sayfasi bittikten sonra suan sabit).
+
+    nav2_mode (string): 'nav2' ya da 'slam' Robot eger modes AMCL modunda ise bu iki mode arasinda gecis yapilicak modes SLAM ise bu mesaj kullanilmayacak.
+
+    modes (string): 'SLAM' ya da 'AMCL' robotun hangi localization sistemini kullandigi bilgisini aliyoruz. Kullanici tarafindan degistirilmiyor.
+
+    system_variant (string): 'PRO' ya da 'LIGHT' robotun hangi versiyon bilgisini bize veriyor. Eger leight ise navigasyon moduyla alakali arayuzde ki hersey gozukucek ama kullanilamiyacak. Kullanmaya calisildiginda ise pro versiyonunu almaniz gerekli gibi bir uyari verebilir. Bu mesaj kullanici tarafindan degistirilemez.
+
+
+
 ## Subscribers
 
 1. **cmd_vel Topic**
@@ -403,3 +446,59 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
    Service_name: `/amr_websocket/save_map`
    
    Service_type: `amr_websocket_interfaces/MapName`
+
+4. **Change Mode**
+   
+   Service_name: `/set_mode_status`
+   
+   Service_type: `amr_websocket_interfaces/ModeStatus`
+
+   Service_definition:
+
+   ```json
+   # Request
+    {
+        "mode": "string",
+        "navmode": "string"
+    }
+   ```
+   ```json
+   # Response
+   response: "mode_name", navmoderes: "navmode_name": Success
+   response: "failed", navmoderes: "failed": Failed
+    {
+        "response": "string",
+        "navmoderes": "string"
+    }
+    ```
+
+    Aciklama
+
+    Neye göre gönderilecek
+
+        Mode Status Topic Publisher'dan gelen verilere bakılarak;
+
+            "mode": system_mode
+
+            "navmode":
+            Eğer modes SLAM ise kullanılmayacak, restart mode servisi kullanılacak.
+            Eğer modes AMCL ise:
+                -nav_mode slam ise nav2 gönderilecek.
+                -nav_mode nav2 ise slam gönderilecek.
+
+5. **Restart Mode**
+   
+   Service_name: `/restart_system`
+   
+   Service_type: `std_srvs/Trigger`
+
+   Service_definition:
+
+   [std_srvs/Trigger](https://docs.ros.org/en/noetic/api/std_srvs/html/srv/Trigger.html)
+
+        Kullanilagi Zamanlar
+
+        Mode Status Topic Publisherdan gelen verilere bakilarak;
+        Eger modes SLAM ise tekrar harita olusturmak icin kullanilacak.
+        
+        Eger modes AMCL ve nav_mode slam ise tekrardan harita olusturmak icin kullanilacak. Diger durumlarda kullanilmayacak.
