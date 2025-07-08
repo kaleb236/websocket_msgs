@@ -276,7 +276,38 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
 
     system_variant (string): 'PRO' ya da 'LIGHT' robotun hangi versiyon bilgisini bize veriyor. Eger leight ise navigasyon moduyla alakali arayuzde ki hersey gozukucek ama kullanilamiyacak. Kullanmaya calisildiginda ise pro versiyonunu almaniz gerekli gibi bir uyari verebilir. Bu mesaj kullanici tarafindan degistirilemez.
 
+14. **Short Introductions Status Topic**
+    
+    Topic: `shortintro_status`
 
+    Msg_type: `amr_websocket_interfaces/ShortIntroStatus`
+
+    Msg_definition:
+
+    ```json
+     {
+        "status": "string"
+     }
+
+   Short Introductions Status Mesajı
+
+    "status": Inactive, Active(Basladi), Moving(Hareket ediyor), Completed
+    Failed, Canceled
+
+15. **LaserScan Topic Topic**
+    
+    Topic: `scan_multi`
+
+    Msg_type: `stds_msgs/LaserScan`
+
+    Msg_definition:
+
+    [stds_msgs/LaserScan](https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/LaserScan.html)
+
+    Robotun engelleri gormesi icin kullanilir.
+    Laserin child_frame_id: base_link (Eger gelen mesajin child_frame_id == base_link lasera aittir).
+    
+    4.Transform Topic
 
 ## Subscribers
 
