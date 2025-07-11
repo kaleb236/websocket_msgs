@@ -309,6 +309,212 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     
     4.Transform Topic
 
+16. **Records Yayınlama**
+   
+   Topic: `records_data`
+
+   Msg_type: `orbit_command_msgs/RecordsList`
+
+   Msg_definition:
+
+   ```json
+    {
+    "command": "Records[]"
+    }
+   ```
+   Alt mesaj: Records
+
+   ```json
+    {
+    "record_name": "string",
+    "record_data": "string"
+    }
+   ```
+
+
+   Açıklama:
+    Sistemde kayıtlı olan tüm veriler RecordsList tipiyle bu topic üzerinden guncel olarak yayınlanır.
+
+        command: Tüm kayıtları içeren liste.
+
+        Her Records:
+
+            record_name: Kayıt ismi.
+
+            record_data: Kayıt içeriği.
+17. **Motions Listesini Yayınlama**
+   
+   Topic: `motions_topic`
+
+   Msg_type: `orbit_command_msgs/MotionArray`
+
+   Msg_definition:
+
+   ```json
+    {
+    "motions": "Motion[]"
+    }
+   ```
+   Alt mesaj: Records
+
+   ```json
+    {
+    "motions_text": "string"
+    }
+   ```
+
+   Açıklama:
+    Robotun desteklediği tüm hareketler bu topic üzerinden yayınlanır.
+
+        motions: Hareket komutlarını içeren dizi.
+
+        motions_text: Hareketin adı (örnek: "happy", "sad", "thinking").
+
+18. **Motions Listesini Yayınlama**
+   
+   Topic: `all_movements`
+
+   Msg_type: `orbit_command_msgs/MoveListAll`
+
+   Msg_definition:
+
+   ```json
+    {
+    "all_movements": "MoveListSave[]"
+    }
+   ```
+   Alt mesaj: `MoveListSave`
+
+   ```json
+    {
+    "movements_name": "string",
+    "command": "Move[]"
+    }
+   ```
+   Alt mesaj: `Move`
+
+   ```json
+    {
+    "time": "float",
+    "linear_x": "float",
+    "angular_z": "float"
+    }
+   ```
+
+   Açıklama:
+    Sistemde kayıtlı tüm hareketleri yayınlar. Hareketlerin adı ve komut dizisi JSON'dan okunarak bu topic ile paylaşılır.
+
+19. **All Task Yayınlama**
+   
+   Topic: `all_tasks`
+
+   Msg_type: `orbit_command_msgs/TasksListAll`
+
+   Msg_definition:
+
+   ```json
+    {
+    "all_tasks": "TasksListSave[]"
+    }
+   ```
+   Alt mesaj: `TasksListSave`
+
+   ```json
+    {
+    "tasks_name": "string",
+    "command": "Task[]"
+    }
+   ```
+
+   Açıklama:
+    JSON dosyasındaki tüm kayıtlı görevleri yayar.
+
+20. **Motions Durumu Takibi**
+   
+   Topic: `arduino_topic`
+
+   Msg_type: `arduino_msgs/Buttons`
+
+   Msg_definition:
+
+   ```json
+    {
+    "motions_status": "bool"
+    }
+   ```
+   Açıklama:
+    Arduino'dan gelen motion durumu bilgisi ile bir hareketin bitip bitmediği kontrol edilir.
+
+21. **Ses Aygıtı Yayınlayıcı**
+   
+   Topic: `device`
+
+   Msg_type: `orbit_command_msgs/Device`
+
+   Msg_definition:
+
+   ```json
+    {
+    "input_devices": "string[]",
+    "output_devices": "string[]",
+    "main_device": "string[2]"
+    }
+   ```
+   Açıklama:
+    Sistemdeki mikrofon (source) ve hoparlör (sink) aygıtlarını listeler.
+    Ayrıca, o anki varsayılan giriş ve çıkış aygıtlarını main_device olarak gönderir.
+
+        input_devices: Mevcut mikrofon aygıtlarının isimleri.
+
+        output_devices: Mevcut hoparlör aygıtlarının isimleri.
+
+        main_device: [mevcut varsayılan giriş, mevcut varsayılan çıkış] şeklinde iki elemanlı dizi.
+
+22. **Volume Level Yayını**
+   
+   Topic: `current_volume`
+
+   Msg_type: `std_msgs/Int32`
+
+   Msg_definition:
+
+   ```json
+    {
+    "data": "int32"
+    }
+   ```
+   Açıklama:
+    0.5 saniyede bir sistemdeki varsayılan çıkış ses seviyesi okunur ve değiştiyse bu topic üzerinden yayınlanır.
+
+        data: Anlık çıkış ses seviyesi (% olarak).
+
+        Değişiklik olmadıkça aynı değer tekrar yayınlanmaz. 0-150
+
+22. **Compressed Image Publisher**
+   
+   Topic: `/camera/compressed/image`
+
+   Msg_type: `sensor_msgs/CompressedImage`
+
+   Msg_definition:
+
+   ```json
+    {
+    "header": "std_msgs/Header",
+    "format": "string",
+    "data": "uint8[]"
+    }
+   ```
+   Açıklama:
+    Ham görüntü (Image) alındıktan sonra JPEG formatında %30 kaliteyle sıkıştırılır ve bu topic üzerinden yayınlanır.
+
+        format: 'jpeg' olarak belirlenmiştir.
+
+        data: JPEG sıkıştırılmış byte[] görüntü verisi.
+
+        FPS: Görüntüler saniyede 10 kare (10 FPS) olarak yayınlanır.
+
+
 ## Subscribers
 
 1. **cmd_vel Topic**
@@ -442,6 +648,253 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
 
     Msg_type: [std_msgs/String](https://docs.ros2.org/foxy/api/std_msgs/msg/String.html)
 
+13. **Contiune Button Topic**
+    
+    Topic: `arduino_topic`
+
+    Msg_type: `arduino_msgs/Buttons`
+
+    Msg_definition:
+
+    ```json
+     {
+        "start_btn": "uint8",
+     }
+    ```
+    `uint8 start_btn=1`: Devam etmek icin 1 gonderilir 
+
+14. **Records Ekleme/Güncelleme**
+   
+   Topic: `records`
+
+   Msg_type: `orbit_command_msgs/Records`
+
+   Msg_definition:
+
+   ```json
+    {
+    "record_name": "string",
+    "record_data": "string"
+    }
+   ```
+
+   Açıklama:
+    Yeni bir kayıt eklemek veya var olan bir kaydı güncellemek için bu topic'e mesaj gönderilir.
+
+        record_name: Kaydın ismi (örnek: "hello").
+
+        record_data: Kayda ait içerik (örnek: bir json veya string ifade).
+
+15. **Records Silme**
+   
+   Topic: `records_delete`
+
+   Msg_type: `orbit_command_msgs/Records`
+
+   Msg_definition:
+
+   ```json
+    {
+    "record_name": "string",
+    "record_data": "string"
+    }
+   ```
+
+   Açıklama:
+    Verilen isimdeki kayıt records.json dosyasından silinir. record_data alanı bu işlemde kullanılmaz.
+
+        record_name: Silinecek kaydın ismi.
+
+16. **Movements Komutu Yayınlama**
+   
+   Topic: `cmd_vel`
+
+   Msg_type: `geometry_msgs/Twist`
+
+   Msg_definition:[geometry_msgs/Twist](https://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Twist.html)
+
+   Açıklama:
+    Hareket komutları yürütülürken robotu doğrudan hareket ettirmek için cmd_vel üzerinden hız verisi yayınlanır.
+
+17. **Movements Yürütme Komutu**
+   
+   Topic: `movements`
+
+   Msg_type: `orbit_command_msgs/MoveList`
+
+   Msg_definition:
+
+   ```json
+    {
+    "command": "Move[]"
+    }
+   ```
+   Alt_Msg: `Move`
+
+   ```json
+    {
+    "time": "float",
+    "linear_x": "float",
+    "angular_z": "float"
+    }
+   ```
+
+   Açıklama:
+    Robotun hareket komutlarını çalıştırmak için kullanılan abonelik. Her Move, belirli bir süre (time) boyunca linear_x ve angular_z değerleri ile robotu hareket ettirir.
+
+18. **Movements Kaydetme**
+   
+   Topic: `movements_datas`
+
+   Msg_type: `orbit_command_msgs/MoveListSave`
+
+   Msg_definition:
+
+   ```json
+    {
+    "movements_name": "string",
+    "command": "Move[]"
+    }
+   ```
+   Alt_Msg: `Move`
+
+   ```json
+    {
+    "time": "float",
+    "linear_x": "float",
+    "angular_z": "float"
+    }
+   ```
+
+   Açıklama:
+    Yeni bir hareket dizisini sistemde movements.json içerisine kaydeder veya günceller.
+
+        movements_name: Kaydın ismi.
+
+        command: Hareket dizisini tanımlayan Move listesi.
+
+19. **Movements Silme**
+   
+   Topic: `movements_delete`
+
+   Msg_type: `std_msgs/String`
+
+   Msg_definition:
+
+   ```json
+    {
+    "data": "string"
+    }
+   ```
+
+   Açıklama:
+    Verilen isimdeki hareket kaydını siler.
+
+        data: Silinecek hareketin adı.
+
+20. **Task Listesi Yurutme Komutu**
+   
+   Topic: `tasks_topic`
+
+   Msg_type: `orbit_command_msgs/TasksList`
+
+   Msg_definition:
+
+   ```json
+    {
+    "command": "Task[]"
+    }
+   ```
+   Alt_Msg: `Task`
+
+   ```json
+    {
+    "message_type": "int32",
+    "face": "string",
+    "record": "string",
+    "motion": "string",
+    "command": "Twist[]"
+    }
+   ```
+
+   Açıklama:
+    Robotun ardışık görevler dizisini yürütmesi için bu topic'e görev listesi gönderilir.
+    1: Face servisini çağır.
+    2ve4: Record servisini çağır.
+    3: Motion yayınla (örn. Kafa hareketleri).
+    5: Hareket (Twist komutu) yürüt.
+
+21. **Task Kaydetme**
+   
+   Topic: `tasks_datas`
+
+   Msg_type: `orbit_command_msgs/TasksListSave`
+
+   Msg_definition:
+
+   ```json
+    {
+    "tasks_name": "string",
+    "command": "Task[]"
+    }
+   ```
+
+   Açıklama:
+    Yeni bir görev dizisini sistemde tasks.json içine kaydeder veya var olanı günceller.
+22. **Task Kaydetme**
+   
+   Topic: `tasks_delete`
+
+   Msg_type: `std_msgs/String`
+
+   Msg_definition:
+
+   ```json
+    {
+    "data": "string"
+    }
+   ```
+
+   Açıklama:
+    Verilen isimdeki görevi kalıcı olarak siler.
+
+23. **Motion Komutu Tetikleme**
+   
+   Topic: `motions`
+
+   Msg_type: `std_msgs/String`
+
+   Msg_definition:
+
+   ```json
+    {
+    "data": "string"
+    }
+   ```
+
+   Açıklama:
+    Kafa hareket (motion) komutlarını tetiklemek için bu topic kullanılır.
+
+24. **Set Volume**
+   
+   Topic: `set_volume`
+
+   Msg_type: `std_msgs/Int32`
+
+   Msg_definition:
+
+   ```json
+    {
+    "data": "int32"
+    }
+   ```
+
+   Açıklama:
+    Bu topic'e gönderilen Int32 değeri (örneğin 85) sistemdeki varsayılan çıkış ses seviyesini (@DEFAULT_SINK@) ayarlamak için kullanılır.
+    Geçerli aralık: 0 ile 150 arası (% cinsinden).
+
+        data: Yeni ayarlanacak ses seviyesi yüzdesi (% olarak).
+
 ## Services
 1. **Load Map**
    
@@ -533,3 +986,202 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
         Eger modes SLAM ise tekrar harita olusturmak icin kullanilacak.
         
         Eger modes AMCL ve nav_mode slam ise tekrardan harita olusturmak icin kullanilacak. Diger durumlarda kullanilmayacak.
+
+6. **Cancel Service**
+   
+   Service_name: ` /navigate_to_pose/_action/cancel_goal`
+   
+   Service_type: `action_msgs/CancelGoal`
+
+   Service_definition:
+
+   [action_msgs/CancelGoal](https://docs.ros2.org/foxy/api/action_msgs/srv/CancelGoal.html)
+
+7. **Face Service**
+   
+   Service_name: `/change_face` `Burda response feelings bitmeden hemen gelir`
+
+   Service_name: `/face_task` `Burda response feelings bittikten sonra gelir.`
+   
+   Service_type: `orbit_command_msgs/Face`
+
+   Service_definition:
+
+   ```json
+   # Request
+    {
+    "face": "uint8"
+    }
+   ```
+   ```json
+   # Response
+   response: true : Success
+   response: false : Failed
+    {
+    "response": "bool"
+    }
+    ```
+
+    Açıklama:
+        Robotun yüz ifadesini değiştirmek veya ilgili görseli göstermek için kullanılır.
+        FACE_IDS = {
+            0: "blinking.mp4",
+            1: "breathe.mp4",
+            2: "compassion.mp4",
+            3: "curious.mp4",
+            4: "error.mp4",
+            5: "heart_eyes.mp4",
+            6: "hello.mp4",
+            7: "loading.mp4",
+            8: "playful.mp4",
+            9: "shy.mp4",
+            10: "star_eyes.mp4",
+            11: "surprised.mp4",
+            12: "thank_you.mp4"
+        }
+
+8. **Records Service**
+   
+   Service_name: `/record` `Burda response record bitmeden hemen gelir`
+
+   Service_name: `/record_task` `Burda response record bittikten sonra gelir.`
+   
+   Service_type: `orbit_command_msgs/Records`
+
+   Service_definition:
+
+   ```json
+   # Request
+    {
+    "record": "string"
+    }
+   ```
+   ```json
+   # Response
+   response: true : Success
+   response: false : Failed
+    {
+    "response": "bool"
+    }
+    ```
+
+    Açıklama:
+        Texti sese cevirmek icin kullanilir, record requestine seslendirmek istedigimiz texti gondeririz.
+    
+9. **Set Audio Device**
+   
+   Service_name: `/set_input_device`
+   
+   Service_type: `orbit_command_msgs/SetDevice`
+
+   Service_definition:
+
+   ```json
+   # Request
+    {
+    "input_name": "string",
+    "output_name": "string"
+    }
+   ```
+   ```json
+   # Response
+   response: true : Success
+   response: false : Failed
+    {
+    "response": "bool"
+    }
+    ```
+
+    Açıklama:
+        Bu servis, varsayılan giriş (input) ve çıkış (output) ses aygıtlarını pactl komutları aracılığıyla değiştirir.
+        Servis, belirtilen cihaz sistemde zaten aktifse değiştirmez, farklıysa aygıtı günceller.
+        
+        Servisi kullanirken input_name degisicekse output_name default_output olmali ki hata vermesin ayni sekilde digeri icin gecerli.
+        
+        Default_output ve default_input isimlerini Ses Aygıtı Yayınlayıcı alabilirsin.
+
+            input_name: Değiştirilecek mikrofon aygıt adı (pactl list short sources çıktısındaki değer).
+
+            output_name: Değiştirilecek hoparlör aygıt adı (pactl list short sinks çıktısındaki değer).
+
+            response: İşlem başarılıysa true, hata varsa false.
+
+
+10. **MP3 Service**
+   
+   Service_name: `/mpname`
+   
+   Service_type: `orbit_command_msgs/srv/Mpname`
+
+   Service_definition:
+
+   ```json
+   # Request
+    {
+    "mpname": "string"
+    }
+   ```
+   ```json
+   # Response
+   response: true : Success
+   response: false : Failed
+    {
+    "response": "bool"
+    }
+    ```
+
+    Açıklama:
+        mpname: "battery"Motor Driver Publisherdan gelen batarya seviyesi 21.0 25.2 yuzde 10 un altina dustugunde gonderilir, 'camera_voice' ise fotograf cekiminde kullanilir.
+
+11. **Remove Video**
+   
+   Service_name: `/remove_videos`
+   
+   Service_type: `orbit_command_msgs/srv/VideoRemove`
+
+   Service_definition:
+
+   ```json
+   # Request
+    {
+    "videoname": "string"
+    }
+   ```
+   ```json
+   # Response
+   response: true : Success
+   response: false : Failed
+    {
+    "response": "bool"
+    }
+    ```
+
+    Açıklama:
+        video_name: "video.mp4"
+
+12. **Start Video**
+   
+   Service_name: `/video_play`
+   
+   Service_type: `orbit_command_msgs/Video`
+
+   Service_definition:
+
+   ```json
+   # Request
+    {
+    "videoname": "string"
+    }
+   ```
+   ```json
+   # Response
+   response: true : Success
+   response: false : Failed
+    {
+    "response": "bool"
+    }
+    ```
+
+    Açıklama:
+        video_name: "video.mp4" response video bittikten sonra geliyor. Suan video bitmeden baska video oynatamiyoruz ve durdurma ozelligide yok, bu ozelliklerde bu hafta eklenicek.
+
