@@ -153,12 +153,12 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     {
         "station_name": "string",
         "description": "string",
-        "video": "string",
+        "video": "string", //video_name.mp4 degil 'video_name'
         "position": "geometry_msgs/Point"
     }
    ```
 
-   Bu mesajda istasyon adı, açıklaması, video adı ve haritadaki koordinatları yer almaktadır.
+   Bu mesajda istasyon adı, açıklaması, video adı (video_name.mp4 degil, video_name) ve haritadaki koordinatları yer almaktadır.
 
 8. **Available maps Topic**
    
@@ -514,6 +514,25 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
 
         FPS: Görüntüler saniyede 10 kare (10 FPS) olarak yayınlanır.
 
+23. **Set Task Loop**
+   
+   Topic: `task_loop`
+
+   Msg_type: `std_msgs/Int32`
+
+   Msg_definition:
+
+   ```json
+    {
+    "data": "int32"
+    }
+   ```
+
+   Açıklama:
+     0 : Döngü durdur,
+    -1 : Sonsuz döngü,
+    >0 : Belirtilen sayıda döngü
+
 
 ## Subscribers
 
@@ -540,7 +559,7 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
         "map_name": "string",
         "station_name": "string",
         "description": "string",
-        "video": "string",
+        "video": "string", //video_name.mp4 degil 'video_name'
         "pose": "geometry_msgs/Pose"
     }
    ```
@@ -627,7 +646,7 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
      {
         "introduction_name": "string",
         "description": "string",
-        "video": "string",
+        "video": "string", //video_name.mp4 degil 'video_name'
         "poses": "geometry_msgs/Pose[]"
      }
     ```
@@ -819,10 +838,18 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
 
    Açıklama:
     Robotun ardışık görevler dizisini yürütmesi için bu topic'e görev listesi gönderilir.
-    1: Face servisini çağır.
-    2ve4: Record servisini çağır.
-    3: Motion yayınla (örn. Kafa hareketleri).
-    5: Hareket (Twist komutu) yürüt.
+
+    Görevler sırasıyla çalıştırılır. Her görev tipi (message_type) farklı işlevi tetikler:
+
+    1: Yüz animasyonu (Face)
+
+    2 ve 4: Kayıt işlemi (Records)
+
+    3: Hareket (Motion)
+
+    5: Robot hareket komutları
+
+    6: Video oynatma
 
 21. **Task Kaydetme**
    
@@ -894,6 +921,21 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     Geçerli aralık: 0 ile 150 arası (% cinsinden).
 
         data: Yeni ayarlanacak ses seviyesi yüzdesi (% olarak).
+
+25. **Set Volume**
+   
+   Topic: `current_task_loop`
+
+   Msg_type: `orbit_command_msgs/TaskLoopStatus`
+
+   Msg_definition:
+
+   ```json
+    {
+    "total": "int32",      // Toplam döngü sayısı, -1 ise sonsuz döngü devam ediyor, 0 ise bitti.
+    "remaining": "int32"   // Kalan döngü sayısı, -1 ise sonsuz döngü devam ediyor, 0 ise bitti.
+    }
+   ```
 
 ## Services
 1. **Load Map**
@@ -1183,5 +1225,30 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     ```
 
     Açıklama:
-        video_name: "video.mp4" response video bittikten sonra geliyor. Suan video bitmeden baska video oynatamiyoruz ve durdurma ozelligide yok, bu ozelliklerde bu hafta eklenicek.
+        video_name: "video.mp4" response request gonderdikten hemen sonra geliyor.
+13. **Task Start Video**
+   
+   Service_name: `/video_play_task`
+   
+   Service_type: `orbit_command_msgs/Video`
+
+   Service_definition:
+
+   ```json
+   # Request
+    {
+    "videoname": "string"
+    }
+   ```
+   ```json
+   # Response
+   response: true : Success
+   response: false : Failed
+    {
+    "response": "bool"
+    }
+    ```
+
+    Açıklama:
+        video_name: "video.mp4" response video bittikten sonra geliyor. Task icin bu kullaniliyor.
 
