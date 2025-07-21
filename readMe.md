@@ -1252,3 +1252,29 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     Açıklama:
         video_name: "video.mp4" response video bittikten sonra geliyor. Task icin bu kullaniliyor.
 
+
+14. **Stop Video**
+   
+   Service_name: `/stop_video_service`
+   
+   Service_type: `std_srvs/SetBool`
+
+   Service_definition:
+
+   ```json
+   # Request
+    {
+    "data": "bool"
+    }
+   ```
+   ```json
+   # Response
+   response: true : Success
+   response: false : Failed
+    {
+    "success": "bool"
+    }
+    ```
+
+    Açıklama:
+        data True gonderilince mevcut oynayan video varsa durduruluyor.
