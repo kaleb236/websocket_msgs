@@ -1009,7 +1009,7 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
 
    Aciklama
 
-    `Default_map bos ise ilk defa default_map ismi girilirken mutlaka service cagirilmali responsenin 0 geldiginden emin olunmali.`
+    `Default_map bos ise ilk defa default_map ismi girilirken mutlaka service cagirilmali responsenin 0 geldiginden emin olunmali eger 1 ise tekrar denenmeli.`
 
 4. **Change Mode**
    
