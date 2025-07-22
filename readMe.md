@@ -967,11 +967,49 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
    
    Service_type: `amr_websocket_interfaces/MapName`
 
+   Service_definition:
+
+   ```json
+   # Request
+    {
+        "filename": "string"
+    }
+   ```
+   ```json
+   # Response
+   0: Success
+   1: Fail
+    {
+        "result": "uint8" 
+    }
+   ```
+
 3. **Save Map**
    
    Service_name: `/amr_websocket/save_map`
    
    Service_type: `amr_websocket_interfaces/MapName`
+
+   Service_definition:
+
+   ```json
+   # Request
+    {
+        "filename": "string"
+    }
+   ```
+   ```json
+   # Response
+   0: Success
+   1: Fail
+    {
+        "result": "uint8" 
+    }
+   ```
+
+   Aciklama
+
+    `Default_map bos ise ilk defa default_map ismi girilirken mutlaka service cagirilmali responsenin 0 geldiginden emin olunmali.`
 
 4. **Change Mode**
    
