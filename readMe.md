@@ -1291,28 +1291,18 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
         video_name: "video.mp4" response video bittikten sonra geliyor. Task icin bu kullaniliyor.
 
 
-14. **Stop Video**
+14. **Task Cancel Mode**
    
-   Service_name: `/stop_video_service`
+   Service_name: `/canceled_task`
    
-   Service_type: `std_srvs/SetBool`
+   Service_type: `std_srvs/Trigger`
 
    Service_definition:
 
-   ```json
-   # Request
-    {
-    "data": "bool"
-    }
-   ```
-   ```json
-   # Response
-   response: true : Success
-   response: false : Failed
-    {
-    "success": "bool"
-    }
-    ```
+   [std_srvs/Trigger](https://docs.ros.org/en/noetic/api/std_srvs/html/srv/Trigger.html)
 
-    Açıklama:
-        data True gonderilince mevcut oynayan video varsa durduruluyor.
+        Kullanilagi Zamanlar
+
+        ShortIntronun cancel yapmak icin kullanilir. Starta basildiginda basta baslar.
+    
+
