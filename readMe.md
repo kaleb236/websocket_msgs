@@ -514,25 +514,64 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
 
         FPS: Görüntüler saniyede 10 kare (10 FPS) olarak yayınlanır.
 
-23. **Set Task Loop**
+23. **Set Volume**
    
-   Topic: `task_loop`
+   Topic: `current_task_loop`
 
-   Msg_type: `std_msgs/Int32`
+   Msg_type: `orbit_command_msgs/TaskLoopStatus`
 
    Msg_definition:
 
    ```json
     {
-    "data": "int32"
+    "total": "int32",      // Toplam döngü sayısı, -1 ise sonsuz döngü devam ediyor, 0 ise bitti.
+    "remaining": "int32"   // Kalan döngü sayısı, -1 ise sonsuz döngü devam ediyor, 0 ise bitti.
+    }
+   ```
+
+24. **Low Battery Warning Publisher**
+   
+   Topic: `low_battery`
+
+   Msg_type: `std_msgs/Bool`
+
+   Msg_definition:
+
+   ```json
+    {
+    "data": "bool"
     }
    ```
 
    Açıklama:
-     0 : Döngü durdur,
-    -1 : Sonsuz döngü,
-    >0 : Belirtilen sayıda döngü
+    Eger data True gelirse ui a battery %10 altinda diyerek uyari penceresi acilmasi gerekli. False ise battery normal bir sey yapmaya gerek yok.
 
+25. **Sensor Check Control Publisher**
+   
+   Topic: `system_errors`
+
+   Msg_type: `system_control/Errors`
+
+   Msg_definition:
+
+   ```json
+    {
+    "camera_error": "int8",
+    "front_lidar_error": "int8",
+    "back_lidar_error": "int8",
+    "imu_error": "int8",
+    "motor_error": "int8",
+    "arduino_error": "int8",
+    "system_error": "int8"
+    }
+   ```
+
+   Açıklama:
+    `0:Hata Yok`, `1:Hata Var`
+
+    Eger camera_error,front_lidar_error,back_lidar_error,imu_error,motor_error,arduino_error mesajlarindan en az birinden 1 mesaji gelirse Warning Ledi yanicak ve uyari penceresi gelicek. 
+    
+    Eger system_error 1 ise Error ledi yanicak ve error penceresi gelicek.
 
 ## Subscribers
 
@@ -922,20 +961,24 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
 
         data: Yeni ayarlanacak ses seviyesi yüzdesi (% olarak).
 
-25. **Set Volume**
+25. **Set Task Loop**
    
-   Topic: `current_task_loop`
+   Topic: `task_loop`
 
-   Msg_type: `orbit_command_msgs/TaskLoopStatus`
+   Msg_type: `std_msgs/Int32`
 
    Msg_definition:
 
    ```json
     {
-    "total": "int32",      // Toplam döngü sayısı, -1 ise sonsuz döngü devam ediyor, 0 ise bitti.
-    "remaining": "int32"   // Kalan döngü sayısı, -1 ise sonsuz döngü devam ediyor, 0 ise bitti.
+    "data": "int32"
     }
    ```
+
+   Açıklama:
+     0 : Döngü durdur,
+    -1 : Sonsuz döngü,
+    >0 : Belirtilen sayıda döngü
 
 ## Services
 1. **Load Map**
