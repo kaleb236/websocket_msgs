@@ -573,6 +573,22 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     
     Eger system_error 1 ise Error ledi yanicak ve error penceresi gelicek.
 
+26. **Picture Base64 Publisher**
+   
+   Topic: `picture_base64`
+
+   Msg_type: `std_msgs/String`
+
+   Msg_definition:
+
+   ```json
+    {
+    "data": "String"
+    }
+   ```
+   Açıklama:
+    Picture Task Servicenin tetiklendikten sonra publish edilir. Her mesaj geldiginde galeriye kaydedilir.
+
 ## Subscribers
 
 1. **cmd_vel Topic**
@@ -1347,5 +1363,18 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
         Kullanilagi Zamanlar
 
         ShortIntronun cancel yapmak icin kullanilir. Starta basildiginda basta baslar.
-    
+
+15. **Picture Service**
+   
+   Service_name: `/picture_take`
+   
+   Service_type: `std_srvs/Trigger`
+
+   Service_definition:
+
+   [std_srvs/Trigger](https://docs.ros.org/en/noetic/api/std_srvs/html/srv/Trigger.html)
+
+        Kullanilagi Zamanlar
+
+        Fotograf cekmek icin kullanilir.Ve Picture publisherdan base64 verisi alinir ve kaydedilir.    
 
