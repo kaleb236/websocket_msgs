@@ -307,7 +307,6 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     Robotun engelleri gormesi icin kullanilir.
     Laserin child_frame_id: base_link (Eger gelen mesajin child_frame_id == base_link lasera aittir).
     
-    4.Transform Topic
 
 16. **Records Yayınlama**
    
