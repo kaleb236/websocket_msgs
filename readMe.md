@@ -296,7 +296,7 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
 
 15. **LaserScan Topic Topic**
     
-    Topic: `scan_multi`
+    Topic: `scan_multi_filtred`
 
     Msg_type: `stds_msgs/LaserScan`
 
