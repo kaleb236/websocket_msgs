@@ -588,6 +588,22 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
    Açıklama:
     Picture Task Servicenin tetiklendikten sonra publish edilir. Her mesaj geldiginde galeriye kaydedilir.
 
+27. **Compass Publisher**
+   
+   Topic: `imu_topic`
+
+   Msg_type: `std_msgs/Float32`
+
+   Msg_definition:
+
+   ```json
+    {
+    "data": "float32"
+    }
+   ```
+   Açıklama:
+    0-360 derece arasinda yon verisini verir.
+
 ## Subscribers
 
 1. **cmd_vel Topic**
