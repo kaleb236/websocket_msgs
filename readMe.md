@@ -1441,3 +1441,17 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
 
         response (response): Google Speech-to-Text (Türkçe) kullanılarak çözümlenen metin
 
+17. **Stop Video Service**
+   
+   Service_name: `/stop_video_service`
+   
+   Service_type: `std_srvs/SetBool`
+
+   Service_definition:
+
+   [std_srvs/SetBool](https://docs.ros.org/en/noetic/api/std_srvs/html/srv/SetBool.html)
+
+        Kullanilagi Zamanlar
+
+        Istenildigi zaman videoyu durdurmak icin kullanilir    
+
