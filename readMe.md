@@ -995,6 +995,24 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     -1 : Sonsuz döngü,
     >0 : Belirtilen sayıda döngü
 
+26. **Set Emergency Btn**
+   
+   Topic: `rbt_status`
+
+   Msg_type: `std_msgs/String`
+
+   Msg_definition:
+
+   ```json
+    {
+    "data": "string"
+    }
+   ```
+
+   Açıklama:
+    'motor_stop' : Motoru pasif yapar,
+    'motor_start' : Motoru aktif yapar,
+
 ## Services
 1. **Load Map**
    
@@ -1377,4 +1395,33 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
         Kullanilagi Zamanlar
 
         Fotograf cekmek icin kullanilir.Ve Picture publisherdan base64 verisi alinir ve kaydedilir.    
+
+16. **Records Convert Text**
+   
+   Service_name: `/converter_topic`
+   
+   Service_type: `orbit_command_msgs/Converter`
+
+   Service_definition:
+
+   ```json
+   # Request
+    {
+    "converter": "string"
+    }
+```
+   ```json
+   # Response
+   response: text : Success
+   response: "" : Failed
+    {
+    "response": "string"
+    }
+```
+
+    Açıklama:
+
+        converter (request): Base64 olarak kodlanmış MP3 ses verisi
+
+        response (response): Google Speech-to-Text (Türkçe) kullanılarak çözümlenen metin
 
