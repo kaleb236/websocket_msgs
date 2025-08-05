@@ -354,7 +354,7 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     "motions": "Motion[]"
     }
    ```
-   Alt mesaj: Records
+   Alt mesaj: Motion
 
    ```json
     {
@@ -369,7 +369,7 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
 
         motions_text: Hareketin adı (örnek: "happy", "sad", "thinking").
 
-18. **Motions Listesini Yayınlama**
+18. **Movements Listesini Yayınlama**
    
    Topic: `all_movements`
 
@@ -513,7 +513,7 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
 
         FPS: Görüntüler saniyede 10 kare (10 FPS) olarak yayınlanır.
 
-23. **Set Volume**
+23. **Tasks Loop Publisher**
    
    Topic: `current_task_loop`
 
@@ -922,7 +922,7 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
 
    Açıklama:
     Yeni bir görev dizisini sistemde tasks.json içine kaydeder veya var olanı günceller.
-22. **Task Kaydetme**
+22. **Task Delete**
    
    Topic: `tasks_delete`
 
@@ -1258,7 +1258,8 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     {
     "mpname": "string"
     }
-   ```
+```
+   
    ```json
    # Response
    response: true : Success
@@ -1266,13 +1267,13 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     {
     "response": "bool"
     }
-    ```
+```
 
     Açıklama:
         mpname: "battery"Motor Driver Publisherdan gelen batarya seviyesi 21.0 25.2 yuzde 10 un altina dustugunde gonderilir, 'camera_voice' ise fotograf cekiminde kullanilir.
 
 11. **Remove Video**
-   
+
    Service_name: `/remove_videos`
    
    Service_type: `orbit_command_msgs/srv/VideoRemove`
@@ -1284,7 +1285,7 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     {
     "videoname": "string"
     }
-   ```
+```
    ```json
    # Response
    response: true : Success
@@ -1292,7 +1293,7 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     {
     "response": "bool"
     }
-    ```
+```
 
     Açıklama:
         video_name: "video.mp4"
@@ -1310,7 +1311,7 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     {
     "videoname": "string"
     }
-   ```
+```
    ```json
    # Response
    response: true : Success
@@ -1318,7 +1319,7 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     {
     "response": "bool"
     }
-    ```
+```
 
     Açıklama:
         video_name: "video.mp4" response request gonderdikten hemen sonra geliyor.
@@ -1335,7 +1336,7 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     {
     "videoname": "string"
     }
-   ```
+```
    ```json
    # Response
    response: true : Success
@@ -1343,7 +1344,7 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     {
     "response": "bool"
     }
-    ```
+```
 
     Açıklama:
         video_name: "video.mp4" response video bittikten sonra geliyor. Task icin bu kullaniliyor.
