@@ -605,6 +605,25 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
    Açıklama:
     0-360 derece arasinda yon verisini verir.
 
+28. **Battery Data Publisher**
+   
+   Topic: `battery_status`
+
+   Msg_type: `arduino_msgs/BatteryStatus`
+
+   Msg_definition:
+
+   ```json
+    {
+    "voltage_smth": "float32",
+    "current_smth": "float32",
+    "max_voltage": "float32",
+    "min_voltage": "float32"
+    }
+   ```
+   Açıklama:
+    max_voltage ve min voltage robotun ustundeki pilin max ve min degeridir. voltage_smth da pilin anlik voltage degeridir bu degerlere gore pil gostergesi seviyesi ayarlanir.
+
 ## Subscribers
 
 1. **cmd_vel Topic**
