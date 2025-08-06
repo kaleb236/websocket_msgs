@@ -557,7 +557,6 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     {
     "camera_error": "int8",
     "front_lidar_error": "int8",
-    "back_lidar_error": "int8",
     "imu_error": "int8",
     "motor_error": "int8",
     "arduino_error": "int8",
@@ -568,9 +567,11 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
    Açıklama:
     `0:Hata Yok`, `1:Hata Var`
 
-    Eger camera_error,front_lidar_error,back_lidar_error,imu_error,motor_error,arduino_error mesajlarindan en az birinden 1 mesaji gelirse Warning Ledi yanicak ve uyari penceresi gelicek. 
+    Eger camera_error,front_lidar_error,imu_error,motor_error,arduino_error mesajlarindan en az birinden `1` mesaji gelirse `Warning` Ledi yanicak.
     
-    Eger system_error 1 ise Error ledi yanicak ve error penceresi gelicek.
+    Eger system_error `1` ise `Error` ledi yanicak.
+
+    Eger hepsi `0` ise `Active` ledi yanacak.
 
 26. **Picture Base64 Publisher**
    
@@ -902,7 +903,8 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
     "face": "string",
     "record": "string",
     "motion": "string",
-    "command": "Twist[]"
+    "command": "Twist[]",
+    "video": "string"
     }
    ```
 
@@ -911,15 +913,15 @@ Bu doküman, ORBIT ROS 2 projesinde kullanılan mesaj tiplerini ve bu mesajları
 
     Görevler sırasıyla çalıştırılır. Her görev tipi (message_type) farklı işlevi tetikler:
 
-    1: Yüz animasyonu (Face)
+        1: Yüz animasyonu (Face)
 
-    2 ve 4: Kayıt işlemi (Records)
+        2 ve 4: Kayıt işlemi (Records)
 
-    3: Hareket (Motion)
+        3: Hareket (Motion)
 
-    5: Robot hareket komutları
+        5: Robot hareket komutları
 
-    6: Video oynatma
+        6: Video oynatma
 
 21. **Task Kaydetme**
    
